@@ -20,16 +20,23 @@
 
 ## items テーブル
 
-| Column     | Type       | Options     |
-| ---------- | ---------- | ----------- |
-| name       | string     | null: false |
-| info       | text       | null: false |
-| price      | integer    | null: false |
-| user       | references | null: false, foreign_key: true |
+| Column                 | Type       | Options     |
+| ---------------------- | ---------- | ----------- |
+| name                   | string     | null: false |
+| info                   | text       | null: false |
+| category_id            | integer    | null: false |
+| sales_status_id        | integer    | null: false |
+| shipping_fee_status_id | integer    | null: false |
+| prefecture_id          | integer    | null: false |
+| shipping_fee_status_id | integer    | null: false |
+| shipping_fee_status_id | integer    | null: false |
+| scheduled_delivery_id  | integer    | null: false |
+| user                   | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
+- has_one :order
 
 ## orders テーブル
 
@@ -41,19 +48,21 @@
 
 ### Association
 
+- belongs_to :user
 - belongs_to :item
-- belongs_to :pay_form
+- has_one :pay_form
 
 ## pay_forms テーブル
 
-| Column       | Type       | Options     |
-| ------------ | ---------- | ----------- |
-| postal_code  | string     | null: false |
-| city         | string     | null: false |
-| addresses    | string     | null: false |
-| building     | string     |             |
-| phone_number | integer    | null: false |
+| Column        | Type       | Options     |
+| ------------- | ---------- | ----------- |
+| postal_code   | string     | null: false |
+| prefecture_id | integer    | null: false |
+| city          | string     | null: false |
+| addresses     | string     | null: false |
+| building      | string     |             |
+| phone_number  | string     | null: false |
 
 ### Association
 
-- has_many :orders
+- belongs_to :order
