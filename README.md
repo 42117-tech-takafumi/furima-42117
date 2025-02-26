@@ -28,9 +28,8 @@
 | sales_status_id        | integer    | null: false |
 | shipping_fee_status_id | integer    | null: false |
 | prefecture_id          | integer    | null: false |
-| shipping_fee_status_id | integer    | null: false |
-| shipping_fee_status_id | integer    | null: false |
 | scheduled_delivery_id  | integer    | null: false |
+| price                  | integer    | null: false |
 | user                   | references | null: false, foreign_key: true |
 
 ### Association
@@ -44,7 +43,6 @@
 | ---------- | ---------- | ----------- |
 | user       | references | null: false, foreign_key: true |
 | item       | references | null: false, foreign_key: true |
-| pay_form   | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -62,6 +60,7 @@
 | addresses     | string     | null: false |
 | building      | string     |             |
 | phone_number  | string     | null: false |
+| orders        | references | null: false, foreign_key: true |
 
 ### Association
 
