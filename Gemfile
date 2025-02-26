@@ -58,7 +58,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-
+  gem 'rubocop', '1.71.2', require: false
 end
 
 group :test do
@@ -67,10 +67,6 @@ group :test do
   gem "selenium-webdriver"
   gem 'rspec-rails', '~> 4.0.0'
   gem 'factory_bot_rails'
-end
-
-group :development do
-  gem 'rubocop', require: false
 end
 
 group :production do
