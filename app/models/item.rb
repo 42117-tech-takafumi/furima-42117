@@ -8,7 +8,7 @@ class Item < ApplicationRecord
   validates :price, presence: true, numericality: { only_integer: true, message: "is not a number" }
 
   with_options if: -> { self.price_before_type_cast.to_s.match?(/\A[0-9]+\z/) } do
-    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'must be greater than or equal to 300' }
+    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
   end
 
   belongs_to :category
