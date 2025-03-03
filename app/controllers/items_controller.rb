@@ -37,7 +37,6 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    binding.pry
     @item.destroy
     redirect_to root_path
   end
