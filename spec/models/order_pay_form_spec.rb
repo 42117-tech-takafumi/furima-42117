@@ -2,12 +2,18 @@ require 'rails_helper'
 
 RSpec.describe OrderPayForm, type: :model do
   before do
-    @order_pay_form = FactoryBot.build(:order_pay_form)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @order_pay_form = FactoryBot.build(:order_pay_form,item_id: item.id,user_id: user.id)
   end
 
   describe '商品購入' do
     context '商品購入できるとき' do
       it 'カード情報を始めとした全てのカラムの正しいデータが存在すれば登録できる' do
+        expect(@order_pay_form).to be_valid
+      end
+      it '建物名以外のカード情報を始めとした全てのカラムの正しいデータが存在すれば登録できる' do
+        @order_pay_form.building = ""
         expect(@order_pay_form).to be_valid
       end
     end
@@ -68,12 +74,27 @@ RSpec.describe OrderPayForm, type: :model do
       it '電話番号が10桁未満の場合は登録できない' do
         @order_pay_form.phone_number = "12345678"
         @order_pay_form.valid?
-        expect(@order_pay_form.errors.full_messages).to include("Phone number is too short")
+        expect(@order_pay_form.errors.full_messages).to include("Phone number must be between 10 and 11 digits")
+      end
+      it '電話番号が12桁以上の場合は登録できない' do
+        @order_pay_form.phone_number = "123456789100"
+        @order_pay_form.valid?
+        expect(@order_pay_form.errors.full_messages).to include("Phone number must be between 10 and 11 digits")
       end
       it '電話番号に半角数字以外の文字列が含まれている場合は登録できない' do
         @order_pay_form.phone_number = "aあ１2345678"
         @order_pay_form.valid?
         expect(@order_pay_form.errors.full_messages).to include("Phone number is invalid. Input only number")
+      end
+      it 'userが紐づいていない場合は登録できない' do
+        @order_pay_form.user_id = nil
+        @order_pay_form.valid?
+        expect(@order_pay_form.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐づいていない場合は登録できない' do
+        @order_pay_form.item_id = nil
+        @order_pay_form.valid?
+        expect(@order_pay_form.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
